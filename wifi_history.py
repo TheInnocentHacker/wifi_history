@@ -1,11 +1,25 @@
 from winreg import *
 import binascii
 
-net=r"SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Signatures\Unmanaged"
-key=OpenKey(HKEY_LOCAL_MACHINE,net)
-print("\n[*] Networks You have joined -->>\n")
-print("[*]\t\tAccess Point\t|\tMAC Address")
-print("--"*40)
+
+print(" __          ___ ______ _   _    _ _     _                   ")
+print(" \ \        / (_)  ____(_) | |  | (_)   | |                  ")
+print("  \ \  /\  / / _| |__   _  | |__| |_ ___| |_ ___  _ __ _   _ ")
+print("   \ \/  \/ / | |  __| | | |  __  | / __| __/ _ \| '__| | | |")
+print("    \  /\  /  | | |    | | | |  | | \__ \ || (_) | |  | |_| |")
+print("     \/  \/   |_|_|    |_| |_|  |_|_|___/\__\___/|_|   \__, |")
+print("                       ______                           __/ |")
+print("                      |______|                         |___/ ")
+print()
+print("Author: Vaibhav Kush")
+print()
+try:
+	key=OpenKey(HKEY_LOCAL_MACHINE,r'SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Signatures\Unmanaged',0,KEY_READ | KEY_WOW64_64KEY)
+except FileNotFoundError:
+	key=OpenKey(HKEY_LOCAL_MACHINE,r'SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Signatures\Unmanaged',0,KEY_READ | KEY_WOW64_32KEY)
+print("[+] Here's the list of networks you have joined till date:\n")
+print("[*]\tAccess Point\t|\tMAC Address")
+print("--"*30)
 for i in range(25):
     try:
         guid=EnumKey(key,i)
@@ -16,7 +30,7 @@ for i in range(25):
             addr=binascii.hexlify(addr).decode()
         except TypeError:
             pass
-        print("\t[+] "+name+"\t:\t"+str(addr))
+        print("\t[+]",name,":",str(addr))
         CloseKey(netKey)
     except:
        continue
