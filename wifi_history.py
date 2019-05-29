@@ -20,7 +20,7 @@ except FileNotFoundError:
 print("[+] Here's the list of networks you have joined till date:\n")
 print("[*]\tAccess Point\t|\tMAC Address")
 print("--"*30)
-for i in range(25):
+for i in range(500):
     try:
         guid=EnumKey(key,i)
         netKey=OpenKey(key,str(guid))
